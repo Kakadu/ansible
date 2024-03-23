@@ -1,0 +1,30 @@
+- name: Install ZSH
+  apt: name=zsh
+  tags: 'zsh'
+
+# - name: Change shell to zsh
+#   shell: chsh -s $(which zsh) kakadu
+#   tags: 'zsh'
+#   become_user: kakadu
+
+- name: Add the user 'johnd' with a specific uid and a primary group of 'admin'
+  ansible.builtin.user:
+    name: kakadu
+    shell: /usr/bin/zsh
+
+- name: Check that the somefile.conf exists
+  stat:
+    path: /home/kakadu/.oh-my-zsh
+  register: oh_my_stats
+  tags: 'zsh'
+
+- name: Oh-My-Zsh
+  shell: curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh > ~/.oh-my-installer && chmod +x ~/.oh-my-installer && ~/.oh-my-installer
+  tags: 'zsh'
+  when: oh_my_stats.stat.exists == False
+
+- name: Install zsh-autosuggestions
+  ansible.builtin.git:
+    repo: 'https://github.com/zsh-users/zsh-autosuggestions.git'
+    dest: "~/.oh-my-zsh/plugins/zsh-autosuggestions"
+  tags: 'zsh'

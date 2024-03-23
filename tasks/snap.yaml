@@ -1,0 +1,3 @@
+# umount /var/snap/firefox/common/host-hunspell
+# sudo snap remove firefox
+# sudo apt purge snapd

@@ -1,0 +1,14 @@
+- name: GNU tools
+  become: true
+  ansible.builtin.apt:
+    name: ["htop", "tree", "mc"]
+  tags:
+    - core
+
+- name: Remove unattended-upgrades
+  become: true
+  ansible.builtin.apt:
+    name: ["unattended-upgrades"]
+    state: absent
+  tags:
+    - core

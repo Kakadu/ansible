@@ -1,0 +1,20 @@
+{
+    "name": "Figures side-by-side",
+    "abbrev": "",
+    "description": [ "" ],
+    "formatVersion": 1,
+    "menu": "",
+    "shortcut": "",
+    "tag": [
+        "\\begin{figure}[ht]",
+        "  \\begin{subfigure}[t]{.55\\textwidth}",
+        "     left",
+        "  \\end{subfigure}",
+        "\\hspace{1cm}",
+        "  \\begin{subfigure}[t]{.35\\textwidth}",
+        "    right",
+        "  \\end{subfigure}",
+        "\\end{figure}"
+    ],
+    "trigger": ""
+}

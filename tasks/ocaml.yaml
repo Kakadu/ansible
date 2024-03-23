@@ -1,0 +1,11 @@
+- name: OCaml-related packages
+  become: true
+  ansible.builtin.apt:
+    name:
+      - "opam"
+      - "m4"
+      - "vim"
+      - "rlwrap"
+      - "direnv"
+  tags:
+    - ocaml

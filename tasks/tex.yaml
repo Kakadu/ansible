@@ -1,0 +1,15 @@
+- name: Latex APT packages
+  become: true
+  ansible.builtin.apt:
+    name:
+      - "texstudio"
+      - "texlive-xetex"
+      - "texlive-fonts-extra"
+      - "texlive-plain-generic"
+      - "texlive-science"
+      - "fonts-cmu"
+      - "fonts-oflb-asana-math"
+      - "hunspell-ru"
+      - "texlive-lang-cyrillic"
+  tags:
+    - tex

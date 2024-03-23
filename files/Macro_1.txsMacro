@@ -1,0 +1,18 @@
+{
+    "name": "defverbatim",
+    "abbrev": "",
+    "description": [
+        ""
+    ],
+    "formatVersion": 1,
+    "menu": "",
+    "shortcut": "",
+    "tag": [
+        "\\defverbatim[colored]{\\AAA}{",
+        "\\begin{lstlisting}[language=c]",
+        "for (int i=0; i<N; i++)  x = f(x);",
+        "\\end{lstlisting}",
+        "}"
+    ],
+    "trigger": ""
+}

@@ -1,0 +1,59 @@
+- name: Kakadu's play
+  hosts: localhost
+  vars:
+    source_key: "./.ssh/id_rsa"
+    dest_key: "{{ lookup('env', 'HOME') }}/.ssh/id_rsa"
+    personal: "{{ lookup('env', 'HOME') }}/personal"
+  pre_tasks:
+    - name: Update Apt
+      become: true
+      ansible.builtin.apt:
+        force_apt_get: true
+        update_cache: true
+        state: present
+      tags:
+        - install
+        - core
+
+  tasks:
+    - name: Core setup
+      ansible.builtin.include_tasks: tasks/core-setup.yaml
+      tags:
+        - always
+    - name: Latex
+      ansible.builtin.include_tasks: tasks/tex.yaml
+      tags:
+        - always
+    - name: Chromium without snap
+      ansible.builtin.include_tasks: tasks/chromium-debian.yaml
+      tags:
+        - always
+    - name: Brave browser
+      ansible.builtin.include_tasks: tasks/brave.yaml
+      tags:
+        - always
+    - name: KDE
+      ansible.builtin.include_tasks: tasks/KDE.yaml
+      tags:
+        - always
+    - name: OCaml
+      ansible.builtin.include_tasks: tasks/ocaml.yaml
+      tags:
+        - always
+    - name: ZSH setup
+      ansible.builtin.include_tasks: tasks/zsh-setup.yaml
+      tags:
+        - always
+
+    #    - include: tasks/ssh.yml
+    #    - include: tasks/git-setup.yml
+    #    - include: tasks/node-setup.yml
+    #    - include: tasks/npm-packages.yml
+      #    - include: tasks/slack-setup.yml
+      #    - include: tasks/personal-projects.yml
+      #    - include: tasks/nvim-setup.yml
+      #    - include: tasks/brave.yml
+      #    - include: tasks/debugger.yml
+      #    - include: tasks/dotfiles.yml
+      #    - include: tasks/productivity-tools.yml
+      #    - include: tasks/lsp.yml

@@ -1,0 +1,84 @@
+- name: Create profile 'Profile1'
+  community.general.kdeconfig:
+    path: ~/.local/share/konsole/Profile1.profile
+    values:
+      - groups: [Appearance]
+        key: Font
+        value: 'DejaVu Sans Mono,14,-1,5,50,0,0,0,0,0'
+      - groups: [General]
+        key: Name
+        value: Profile1
+      - groups: [Interaction Options]
+        key: AutoCopySelectedText
+        value: true
+      - groups: [Interaction Options]
+        key: MiddleClickPasteMode
+        value: 1
+      - groups: [Interaction Options]
+        key: TrimLeadingSpacesInSelectedText
+        value: true
+      - groups: [Interaction Options]
+        key: TrimTrailingSpacesInSelectedText
+        value: true
+      - groups: [Scrolling]
+        key: HistoryMode
+        value: 2
+      - groups: [Terminal Features]
+        key: BlinkingCursorEnabled
+        value: true
+    backup: true
+  tags:
+    - KDE
+
+- name: TeX Studio
+  community.general.ini_file:
+    dest: ~/.config/texstudio/texstudio.ini
+    section: texmaker
+    option: "{{ item.option }}"
+    value: "{{ item.value }}"
+  loop:
+    - option: Tools\Commands\latex
+      value: "latex -src -interaction=nonstopmode %.tex"
+    - option: Tools\Commands\xelatex
+      value: "time -f '%%U' xelatex -synctex=1 -interaction=nonstopmode %.tex"
+    - option: keysetting\1\id
+      value: "main/file/save~0"
+    - option: keysetting\1\key
+      value: ""
+    - option: keysetting\2\id
+      value: "main/edit2/togglecomment~1"
+    - option: keysetting\2\key
+      value: "Ctrl+/"
+    - option: keysetting\3\id
+      value: "main/tools/quickbuild~1"
+    - option: keysetting\3\key
+      value: "Ctrl+S"
+    - option: keysetting\4\id
+      value: "main/latex/listenvironment/item~0"
+    - option: keysetting\4\key
+      value: "Alt+Shift+H"
+  tags:
+    - texstudio
+
+- name: TeX Studio
+  community.general.ini_file:
+    path: ~/.config/texstudio/texstudio.ini
+    section: drinks
+    option: fav
+    value: lemonade
+    mode: '0600'
+    backup: true
+
+- name: Copy TexStudio macro files
+  copy:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+  loop:
+    - src:  files/Macro_0.txsMacro
+      dest: ~/.config/texstudio/macro/Macro_0.txsMacro
+    - src:  files/Macro_1.txsMacro
+      dest: ~/.config/texstudio/macro/Macro_1.txsMacro
+  tags:
+    - texstudio
+# https://tex.stackexchange.com/a/387327/171947
+# Thesaurus

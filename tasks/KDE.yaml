@@ -1,0 +1,68 @@
+- name: Global Hotkeys
+  community.general.kdeconfig:
+    path: ~/.config/kglobalshortcutsrc
+    values:
+      - groups: [kwin]
+        key: Switch to Desktop 1
+        value: 'Meta+F1'
+      - groups: [kwin]
+        key: Switch to Desktop 2
+        value: 'Meta+F2'
+      - groups: [kwin]
+        key: Switch to Desktop 3
+        value: 'Meta+F3'
+      - groups: [kwin]
+        key: Switch to Desktop 4
+        value: 'Meta+F4'
+      - groups: [kwin]
+        key: Switch to Desktop 5
+        value: ''
+      - groups: [kwin]
+        key: Show Desktop
+        value: 'Meta+D,Peek at Desktop'
+    backup: true
+  tags:
+    - KDE
+
+- name: Specify profile for Konsole
+  community.general.kdeconfig:
+    path: ~/.config/konsolerc
+    values:
+      - groups: [Desktop Entry]
+        key: DefaultProfile
+        value: 'Profile1.profile'
+    backup: true
+  tags:
+    - KDE
+
+- name: Create Konsole profile 'Profile1'
+  community.general.kdeconfig:
+    path: ~/.local/share/konsole/Profile1.profile
+    values:
+      - groups: [Appearance]
+        key: Font
+        value: 'DejaVu Sans Mono,14,-1,5,50,0,0,0,0,0'
+      - groups: [General]
+        key: Name
+        value: Profile1
+      - groups: [Interaction Options]
+        key: AutoCopySelectedText
+        value: true
+      - groups: [Interaction Options]
+        key: MiddleClickPasteMode
+        value: 1
+      - groups: [Interaction Options]
+        key: TrimLeadingSpacesInSelectedText
+        value: true
+      - groups: [Interaction Options]
+        key: TrimTrailingSpacesInSelectedText
+        value: true
+      - groups: [Scrolling]
+        key: HistoryMode
+        value: 2
+      - groups: [Terminal Features]
+        key: BlinkingCursorEnabled
+        value: true
+    backup: true
+  tags:
+    - KDE
