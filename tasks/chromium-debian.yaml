@@ -3,6 +3,7 @@
     - chromium
     - apt
     - no-snap
+  become: true
   ansible.builtin.copy:
     mode: "0600"
     dest: "/etc/apt/preferences.d/chromium-debian.pref"
@@ -19,18 +20,22 @@
     - chromium
     - apt
     - no-snap
+  become: true
   ansible.builtin.copy:
     mode: "0600"
     dest: "/etc/apt/sources.list.d/debian-stable.list"
     content: |
       deb http://deb.debian.org/debian stable main
 
-- name: Import Debian apt key
+- name: Add an apt key by id from a keyserver
+  become: true
+  ansible.builtin.apt_key:
+    keyserver: keyserver.ubuntu.com
+    id: 0E98404D386FA1D9
   tags:
     - chromium
     - apt
     - no-snap
-  ansible.builtin.command:
-    cmd: sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 0E98404D386FA1D9
+
 
 # N.B. Chromium profile dir is in ~/.config/chromium

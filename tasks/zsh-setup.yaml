@@ -1,5 +1,6 @@
 - name: Install ZSH
-  apt: name=zsh
+  ansible.builtin.apt:
+    name: zsh
   tags: 'zsh'
 
 # - name: Change shell to zsh
@@ -12,19 +13,27 @@
     name: kakadu
     shell: /usr/bin/zsh
 
-- name: Check that the somefile.conf exists
-  stat:
-    path: /home/kakadu/.oh-my-zsh
+- name: Check that the Oh-my-zsh already installed
+  ansible.builtin.stat:
+    path: ~/.oh-my-zsh
   register: oh_my_stats
   tags: 'zsh'
 
-- name: Oh-My-Zsh
-  shell: curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh > ~/.oh-my-installer && chmod +x ~/.oh-my-installer && ~/.oh-my-installer
+- name: Download Oh-My-Zsh
+  ansible.builtin.get_url:
+    url: https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh
+    dest: ~/.oh-my-installer
+    mode: '0500'
+  when: not oh_my_stats.stat.exists
+
+- name: Install Oh-My-Zsh
+  ansible.builtin.command: ~/.oh-my-installer
   tags: 'zsh'
-  when: oh_my_stats.stat.exists == False
+  when: not oh_my_stats.stat.exists
 
 - name: Install zsh-autosuggestions
   ansible.builtin.git:
     repo: 'https://github.com/zsh-users/zsh-autosuggestions.git'
     dest: "~/.oh-my-zsh/plugins/zsh-autosuggestions"
+    refspec: 'v0.7.0'
   tags: 'zsh'
