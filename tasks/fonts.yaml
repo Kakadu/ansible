@@ -1,0 +1,22 @@
+- name: Ensure fonts directory exists
+  file:
+    path: "{{ lookup('env', 'HOME') }}/.fonts"
+    state: directory
+  tags:
+    - fonts
+
+- name: Ligamonacop exists
+  shell: "ls {{ lookup('env', 'HOME') }}/.fonts/Ligamonacop.ttf"
+  register: Ligamonacop_exists
+  ignore_errors: yes
+  tags:
+    - fonts
+
+- name: Download Ligamonacop
+  when: Ligamonacop_exists is failed
+  ansible.builtin.get_url:
+    url: https://github.com/Kakadu/FiraMonaco/raw/master/Ligamonacop.ttf
+    dest: "{{ lookup('env', 'HOME') }}/.fonts/Ligamonacop.ttf"
+    mode: '0400'
+  tags:
+    - fonts

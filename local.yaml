@@ -44,6 +44,10 @@
       ansible.builtin.include_tasks: tasks/zsh-setup.yaml
       tags:
         - always
+    - name: Fonts
+      ansible.builtin.include_tasks: tasks/fonts.yaml
+      tags:
+        - always
 
     #    - include: tasks/ssh.yml
     #    - include: tasks/git-setup.yml
