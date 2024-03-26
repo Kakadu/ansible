@@ -5,7 +5,7 @@
     - no-snap
   become: true
   ansible.builtin.copy:
-    mode: "0600"
+    mode: "0644"
     dest: "/etc/apt/preferences.d/chromium-debian.pref"
     content: |
       Package: *
@@ -22,7 +22,7 @@
     - no-snap
   become: true
   ansible.builtin.copy:
-    mode: "0600"
+    mode: "0644"
     dest: "/etc/apt/sources.list.d/debian-stable.list"
     content: |
       deb http://deb.debian.org/debian stable main

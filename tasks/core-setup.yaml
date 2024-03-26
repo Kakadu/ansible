@@ -12,3 +12,19 @@
     state: absent
   tags:
     - core
+
+- name: Flatpak
+  become: true
+  ansible.builtin.apt:
+    name: ["flatpak"]
+  tags:
+    - flatpak
+
+- name: Install multiple Flatpak packages
+  become: true
+  community.general.flatpak:
+    name:
+      - com.discordapp.Discord
+      - md.obsidian.Obsidian
+  tags:
+    - flatpak
